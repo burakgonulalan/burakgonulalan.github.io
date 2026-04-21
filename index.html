@@ -3,73 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burak | Dijital Stratejist</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Burak Gönülalan | Social Media Architect</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #000; --card: #111; --accent: #007aff; --white: #fff; --gray: #a1a1a1; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--white); display: flex; min-height: 100vh; }
-
-        /* Sol Profil Alanı */
-        .sidebar {
-            width: 320px; background: var(--card); padding: 50px 30px;
-            display: flex; flex-direction: column; align-items: center;
-            border-right: 1px solid #222; position: sticky; top: 0; height: 100vh;
+        :root {
+            --primary-color: #00f2fe;
+            --secondary-color: #4facfe;
+            --bg-dark: #0a0a0b;
+            --text-light: #e0e0e0;
         }
-        .profile-pic {
-            width: 160px; height: 160px; border-radius: 50%;
-            /* SENİN SİYAH BEYAZ RESMİN */
-            background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/1000043722.jpg'); 
-            background-size: cover; background-position: center;
-            border: 3px solid var(--accent); box-shadow: 0 0 20px rgba(0,122,255,0.3); margin-bottom: 25px;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
         }
-        .sidebar h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
-        .sidebar p { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
 
-        /* Sağ İçerik Alanı */
-        .main { flex: 1; padding: 60px; }
-        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
-        .hero span { color: var(--accent); }
-        .about-text { font-size: 1.1rem; color: var(--gray); line-height: 1.7; max-width: 700px; margin-bottom: 50px; }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-        /* Site Örnekleri (Grid) */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #222; transition: 0.3s; text-decoration: none; color: #fff; }
-        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .thumb { height: 200px; background-size: cover; background-position: top; }
-        .card-info { padding: 20px; }
-        
-        @media (max-width: 900px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #222; } }
+        .main-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .bio {
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .contact-info {
+            display: grid;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .info-item:hover {
+            color: var(--primary-color);
+            transform: translateX(10px);
+        }
+
+        .label {
+            width: 100px;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .value { cursor: pointer; text-decoration: none; color: inherit; }
+
+        .skills-container {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(79, 172, 254, 0.1);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px dotted var(--secondary-color);
+        }
+
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="profile-pic"></div>
-        <h2>Merhaba, Ben Burak</h2>
-        <p>Dijital Stratejist</p>
-        <a href="mailto:buraklopediofficial@gmail.com" style="background:var(--accent); color:#fff; padding:12px 25px; border-radius:50px; text-decoration:none; font-weight:bold;">İletişime Geç</a>
-    </aside>
+    <div id="canvas-container"></div>
 
-    <main class="main">
-        <section class="hero">
-            <h1>Dijital Dünyanın <span>Mimarı</span></h1>
-            <p class="about-text">İzmir'den dünyaya projeler üreten, 8 yıllık tecrübeyle markaların dijital kimliklerini ve e-ticaret stratejilerini MacBook Air M1 hızıyla yöneten bir profesyonel.</p>
-        </section>
+    <div class="main-wrapper">
+        <div class="glass-card">
+            <h1>Merhabalar, Ben Burak.</h1>
+            <p class="subtitle">Sosyal Dünyama Hoş Geldiniz</p>
+            
+            <div class="bio">
+                Dijital dünyanın dinamiklerini, algoritma yönetimini ve marka stratejilerini profesyonel bir vizyonla yönetiyorum. 
+                Görsel estetikle veri odaklı analitiği birleştirerek, markaların dijital kimliğini inşa ediyorum. 
+                Güvenlikten gelen disiplini, yaratıcı dijital çözümlerle harmanlayarak sürdürülebilir başarılar yaratıyorum.
+            </div>
 
-        <h2 style="margin-bottom: 30px;">Yönettiğim Platformlar</h2>
-        <div class="grid">
-            <a href="#" class="card">
-                <div class="thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/1000046927.jpg');"></div>
-                <div class="card-info"><h4>MedyaBayim Stratejisi</h4><p>Marka konumlandırma ve SMM paneli yönetimi.</p></div>
-            </a>
-            <a href="#" class="card">
-                <div class="thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/1000046928.jpg');"></div>
-                <div class="card-info"><h4>Dönüşüm Optimizasyonu</h4><p>Landing page ve kullanıcı deneyimi tasarımı.</p></div>
-            </a>
+            <div class="contact-info">
+                <div class="info-item">
+                    <span class="label">Telefon:</span>
+                    <a href="tel:+905012914294" class="value">0501 291 42 94</a>
+                </div>
+                <div class="info-item">
+                    <span class="label">E-Posta:</span>
+                    <a href="mailto:burak@example.com" class="value">burak@example.com</a>
+                </div>
+                <div class="info-item">
+                    <span class="label">Konum:</span>
+                    <span class="value">İzmir / Türkiye</span>
+                </div>
+            </div>
+
+            <div class="skills-container">
+                <span class="skill-tag">Social Media Management</span>
+                <span class="skill-tag">Content Strategy</span>
+                <span class="skill-tag">Digital Marketing</span>
+                <span class="skill-tag">Brand Identity</span>
+            </div>
         </div>
-    </main>
+    </div>
 
+    <script>
+        // 3D Arka Plan Sahnesi
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ color: 0x4facfe, wireframe: true });
+        const torus = new THREE.Mesh(geometry, material);
+        
+        scene.add(torus);
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torus.rotation.x += 0.01;
+            torus.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Mouse hareketiyle hafif 3D efekti
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX - window.innerWidth / 2) / 100;
+            const y = (e.clientY - window.innerHeight / 2) / 100;
+            torus.position.x = x;
+            torus.position.y = -y;
+        });
+
+        animate();
+    </script>
 </body>
 </html>
