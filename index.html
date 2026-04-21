@@ -3,181 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burak | Dijital Dönüşüm Stratejisti</title>
+    <title>Burak | Dijital Stratejist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #000000;
-            --card-bg: #111111;
-            --accent: #007aff;
-            --text-main: #ffffff;
-            --text-dim: #a1a1a1;
-        }
+        :root { --bg: #000; --card: #111; --accent: #007aff; --white: #fff; --gray: #a1a1a1; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--white); display: flex; min-height: 100vh; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            min-height: 100vh;
-            line-height: 1.8;
-        }
-
-        /* --- Sol Taraf: Sabit Profil --- */
+        /* Sol Profil Alanı */
         .sidebar {
-            width: 300px;
-            background: var(--card-bg);
-            padding: 4rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid #262626;
-            position: sticky;
-            top: 0;
-            height: 100vh;
+            width: 320px; background: var(--card); padding: 50px 30px;
+            display: flex; flex-direction: column; align-items: center;
+            border-right: 1px solid #222; position: sticky; top: 0; height: 100vh;
         }
-
         .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/image_9.png'); /* Siyah Beyaz Resmin */
-            background-size: cover;
-            background-position: center;
-            border: 4px solid var(--accent);
-            box-shadow: 0 0 30px rgba(0, 122, 255, 0.4);
-            margin-bottom: 2rem;
+            width: 160px; height: 160px; border-radius: 50%;
+            /* SENİN SİYAH BEYAZ RESMİN */
+            background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/1000043722.jpg'); 
+            background-size: cover; background-position: center;
+            border: 3px solid var(--accent); box-shadow: 0 0 20px rgba(0,122,255,0.3); margin-bottom: 25px;
         }
+        .sidebar h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
+        .sidebar p { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
 
-        .sidebar h2 { font-size: 1.8rem; font-weight: 800; color: var(--text-main); }
-        .sidebar p { color: var(--accent); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        /* Sağ İçerik Alanı */
+        .main { flex: 1; padding: 60px; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
+        .hero span { color: var(--accent); }
+        .about-text { font-size: 1.1rem; color: var(--gray); line-height: 1.7; max-width: 700px; margin-bottom: 50px; }
+
+        /* Site Örnekleri (Grid) */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #222; transition: 0.3s; text-decoration: none; color: #fff; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .thumb { height: 200px; background-size: cover; background-position: top; }
+        .card-info { padding: 20px; }
         
-        .contact-btn {
-            margin-top: auto;
-            background: var(--accent);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            transition: 0.3s;
-        }
-        .contact-btn:hover { background: white; color: var(--accent); }
-
-        /* --- Sağ Taraf: Dinamik İçerik --- */
-        .main-content {
-            flex: 1;
-            padding: 4rem;
-        }
-
-        section { margin-bottom: 6rem; }
-
-        h1.section-title { font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 1rem; color: white; }
-        h1.section-title span { color: var(--accent); }
-
-        .lead-text { font-size: 1.2rem; color: var(--text-dim); max-width: 800px; margin-bottom: 3rem; }
-
-        /* Hakkımda Detaylı Anlatım Kartı */
-        .about-card {
-            background: var(--card-bg);
-            padding: 3rem;
-            border-radius: 24px;
-            border: 1px solid #262626;
-        }
-        
-        .about-card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text-main); }
-        .about-card p { color: var(--text-dim); margin-bottom: 1.5rem; }
-
-        /* Portfolyo Galerisi (Site Örnekleri) */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .portfolio-item {
-            background: var(--card-bg);
-            border: 1px solid #262626;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: 0.3s;
-            text-decoration: none;
-            color: white;
-        }
-
-        .portfolio-item:hover { transform: translateY(-10px); border-color: var(--accent); }
-
-        .portfolio-thumb {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .portfolio-item h4 { padding: 20px; font-size: 1.1rem; }
-        .portfolio-item p { padding: 0 20px 20px; color: var(--text-dim); font-size: 0.9rem; }
-
-        /* Ekran Uyumluluğu (Mobil) */
-        @media (max-width: 900px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #262626; padding: 2rem; }
-            .main-content { padding: 2rem; }
-            h1.section-title { font-size: 2rem; }
-        }
+        @media (max-width: 900px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid #222; } }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
+    <aside class="sidebar">
         <div class="profile-pic"></div>
-        <h2>Merhaba, Ben BURAK</h2>
+        <h2>Merhaba, Ben Burak</h2>
         <p>Dijital Stratejist</p>
-        <a href="#contact" class="contact-btn">İletişime Geç</a>
-    </div>
+        <a href="mailto:buraklopediofficial@gmail.com" style="background:var(--accent); color:#fff; padding:12px 25px; border-radius:50px; text-decoration:none; font-weight:bold;">İletişime Geç</a>
+    </aside>
 
-    <div class="main-content">
-        
-        <section id="about">
-            <h1 class="section-title">Dijital Dünyanın <span>Mimarı</span></h1>
-            <p class="lead-text">İzmir'in enerjisi ve 8 yılı aşkın global tecrübeyle markaların dijital DNA'sını yeniden kodluyorum.</p>
-            
-            <div class="about-card">
-                <h3>Vizyoner Bir Yaklaşım</h3>
-                <p>1994 İzmir doğumlu bir teknoloji tutkunu olarak, dijital evrimin en kritik 8 yılına bizzat yön verdim. Sadece takipçi yönetimi değil, markaların dijital kimliklerini inşa etme, algoritma optimizasyonu ve veri odaklı dropshipping stratejileri konusunda uzmanlaştım.</p>
-                <p>Amacım, teknolojik merakımı profesyonel bir vizyonla birleştirip, iş ortaklarımı dijital okyanusta güvenli ve hızlı bir rotada ilerletmek. MacBook Air M1 gücüyle, her projeye "yenilik" ve "performans" katıyorum.</p>
-            </div>
+    <main class="main">
+        <section class="hero">
+            <h1>Dijital Dünyanın <span>Mimarı</span></h1>
+            <p class="about-text">İzmir'den dünyaya projeler üreten, 8 yıllık tecrübeyle markaların dijital kimliklerini ve e-ticaret stratejilerini MacBook Air M1 hızıyla yöneten bir profesyonel.</p>
         </section>
 
-        <section id="portfolio">
-            <h1 class="section-title">Yönettiğim <span>Başarı</span> Hikayeleri</h1>
-            <p class="lead-text">MedyaBayim gibi sektör lideri panellerin dijital stratejilerini ve marka kimliklerini nasıl uçurduğumu inceleyin.</p>
-            
-            <div class="portfolio-grid">
-                <a href="#" class="portfolio-item">
-                    <div class="portfolio-thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/image_10.png');"></div>
-                    <h4>MedyaBayim | Güvenilir SMM Panel</h4>
-                    <p>Marka konumlandırma, kurumsal kimlik ve dijital etkileşim stratejileri.</p>
-                </a>
-
-                <a href="#" class="portfolio-item">
-                    <div class="portfolio-thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/image_11.png');"></div>
-                    <h4>Ücretsiz Üye Ol Kampanyası</h4>
-                    <p>Dönüşüm odaklı landing page tasarımı ve huni optimizasyonu.</p>
-                </a>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h1 class="section-title">Birlikte <span>Büyüyelim</span></h1>
-            <div class="about-card" style="text-align: center;">
-                <h3>Bir Projen mi Var?</h3>
-                <p>İzmir'den dünyaya projeler üretmeye hazırım. Detayları konuşmak için bana bir mail atabilirsin.</p>
-                <a href="mailto:buraklopediofficial@gmail.com" class="contact-btn" style="display: inline-block; margin-top: 1rem;">buraklopediofficial@gmail.com</a>
-            </div>
-        </section>
-
-    </div>
+        <h2 style="margin-bottom: 30px;">Yönettiğim Platformlar</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <div class="thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/1000046927.jpg');"></div>
+                <div class="card-info"><h4>MedyaBayim Stratejisi</h4><p>Marka konumlandırma ve SMM paneli yönetimi.</p></div>
+            </a>
+            <a href="#" class="card">
+                <div class="thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/1000046928.jpg');"></div>
+                <div class="card-info"><h4>Dönüşüm Optimizasyonu</h4><p>Landing page ve kullanıcı deneyimi tasarımı.</p></div>
+            </a>
+        </div>
+    </main>
 
 </body>
 </html>
