@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burak Gönülalan | Dijital Girişimci</title>
+    <title>Burak Gönülalan | 3D Dijital Vizyon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00f2fe;
             --secondary: #4facfe;
-            --accent: #fbc2eb;
-            --bg: #0b0e14;
+            --accent: #ff0055;
+            --bg: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -18,131 +19,222 @@
         body {
             background-color: var(--bg);
             color: white;
-            overflow-x: hidden;
+            overflow: hidden; /* 3D sahne için kaydırmayı kapat */
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Sosyal Medya Arka Plan Efekti */
-        .bg-icons {
+        /* 3D Sahne Konteyneri */
+        #canvas-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0b0e14 0%, #1a1f2c 100%);
+            z-index: 1;
         }
 
-        .bg-icons i {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.05);
-            animation: float 15s linear infinite;
-            bottom: -100px;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Ana Kart Tasarımı */
+        /* Ana Kart Tasarımı - Daha Fazla Şeffaflık ve Parlama */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 40px;
-            padding: 4rem 2rem;
-            max-width: 800px;
+            padding: 3rem 2rem;
+            max-width: 850px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            box-shadow: 0 0 100px rgba(0, 242, 254, 0.1);
             position: relative;
+            z-index: 10; /* İçeriği 3D sahnenin önüne al */
+            transition: 0.5s;
+        }
+        
+        .glass-card:hover {
+            box-shadow: 0 0 150px rgba(0, 242, 254, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+        h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            background: linear-gradient(135deg, #fff, var(--primary), var(--secondary), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
         
-        .sub-title { font-size: 1.2rem; color: var(--primary); letter-spacing: 2px; margin-bottom: 2rem; text-transform: uppercase; }
+        .sub-title { 
+            font-size: 1.3rem; 
+            color: var(--primary); 
+            font-weight: 600;
+            margin-bottom: 2rem; 
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.7);
+        }
+
+        .info-grid { display: flex; justify-content: center; gap: 15px; margin-bottom: 2.5rem; flex-wrap: wrap; }
+        .info-item { 
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.05));
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            border: 1px solid rgba(255,255,255,0.03);
+            font-weight: 500;
+        }
 
         .article {
             text-align: left;
             line-height: 1.8;
-            color: #cbd5e1;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 2rem;
-            border-radius: 20px;
+            color: #e2e8f0;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2.5rem;
+            border-radius: 30px;
             margin: 2rem 0;
-            border-left: 4px solid var(--primary);
+            border: 1px solid rgba(79, 172, 254, 0.2);
         }
 
-        .info-grid { display: flex; justify-content: center; gap: 20px; margin-bottom: 2rem; flex-wrap: wrap; }
-        .info-item { background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; color: #fff; }
+        .article h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
 
         .btn-mail {
             display: inline-flex;
             align-items: center;
             gap: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
             color: white;
-            padding: 15px 40px;
+            padding: 18px 45px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: 0.4s;
-            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+            font-weight: 800;
+            font-size: 1.2rem;
+            transition: 0.5s;
+            box-shadow: 0 0 40px rgba(79, 172, 254, 0.4);
+            text-transform: uppercase;
         }
 
-        .btn-mail:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(79, 172, 254, 0.6); }
+        .btn-mail:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 60px rgba(79, 172, 254, 0.7);
+            filter: brightness(1.1);
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="bg-icons" id="bg-icons"></div>
+    <div id="canvas-container"></div>
 
     <div class="glass-card">
         <h1>Burak Gönülalan</h1>
-        <div class="sub-title">Sosyal Medya & Dijital Stratejist</div>
+        <div class="sub-title">3D DİJİTAL STRATEJİST & VİZYONER</div>
 
         <div class="info-grid">
-            <div class="info-item"><i class="fas fa-map-marker-alt"></i> İzmir</div>
-            <div class="info-item"><i class="fas fa-calendar-alt"></i> 11.12.1994</div>
-            <div class="info-item"><i class="fas fa-briefcase"></i> 8 Yıllık Deneyim</div>
+            <div class="info-item"><i class="fas fa-map-marker-alt" style="color: #ff4757;"></i> İzmir</div>
+            <div class="info-item"><i class="fas fa-birthday-cake" style="color: #ffa502;"></i> 11.12.1994</div>
+            <div class="info-item"><i class="fas fa-bolt" style="color: #eccc68;"></i> 8 Yıllık Sektör Deneyimi</div>
         </div>
 
         <div class="article">
-            <h3>Dijital Dönüşümün Mimarı</h3>
+            <h3>3D Dünyanın Yenilikçi Yüzü</h3>
             <p>
-                1994 yılında İzmir'de doğan Burak Gönülalan, dijital dünyanın evrimine bizzat tanıklık ederek sektörde 8 yıllık köklü bir tecrübe edinmiştir. Sosyal medya dinamikleri, algoritma yönetimi ve yenilikçi dijital pazarlama stratejileri konusundaki uzmanlığıyla, markaların ve bireysel girişimlerin dijital kimliklerini inşa etmektedir. Teknoloji merakını profesyonel bir vizyonla birleştiren Gönülalan, günümüzün hızla değişen sosyal medya trendlerini sadece takip etmekle kalmıyor, bu trendlere yön veren projeler geliştiriyor.
+                İzmir'in enerjisiyle 1994 yılında hayata gözlerini açan Burak Gönülalan, dijital pazarlama ve sosyal medya ekosisteminde tam 8 yıldır kesintisiz projeler üretiyor. Sadece takipçi yönetimi değil, markaların dijital DNA'sını oluşturma ve algoritmaların ötesine geçen stratejiler geliştirme konusunda uzmanlaşmıştır. Dinamik, güncel ve her zaman "yenilik" odaklı yaklaşımıyla sektördeki yerini her geçen gün daha da sağlamlaştırıyor.
             </p>
         </div>
         
         <a href="mailto:buraklopediofficial@gmail.com" class="btn-mail">
-            <i class="fas fa-paper-plane"></i> Projeler İçin İletişime Geç
+            <i class="fas fa-paper-plane"></i> HEMEN İLETİŞİME GEÇ
         </a>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <script>
-        // Arka plan ikonlarını oluşturan script
-        const icons = ['fa-instagram', 'fa-facebook', 'fa-twitter', 'fa-youtube', 'fa-linkedin', 'fa-tiktok', 'fa-snapchat', 'fa-whatsapp'];
-        const bgContainer = document.getElementById('bg-icons');
+        // Üç Boyutlu Sahne Kurulumu (Three.js)
+        let scene, camera, renderer, cubes = [], mouseX = 0, mouseY = 0;
 
-        function createIcon() {
-            const i = document.createElement('i');
-            const iconName = icons[Math.floor(Math.random() * icons.length)];
-            i.classList.add('fab', iconName);
-            i.style.left = Math.random() * 100 + 'vw';
-            i.style.fontSize = Math.random() * 30 + 20 + 'px';
-            i.style.animationDuration = Math.random() * 5 + 10 + 's';
-            bgContainer.appendChild(i);
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-            setTimeout(() => { i.remove(); }, 15000);
+            // 3D Işıklandırma
+            const pointLight = new THREE.PointLight(0x00f2fe, 1);
+            pointLight.position.set(10, 10, 10);
+            scene.add(pointLight);
+            
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+            scene.add(ambientLight);
+
+            // 3D Küplerden Tünel Oluşturma
+            const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+            for(let i = 0; i < 200; i++) {
+                const material = new THREE.MeshPhongMaterial({
+                    color: Math.random() > 0.5 ? 0x00f2fe : 0x7000ff,
+                    transparent: true,
+                    opacity: 0.5,
+                    shininess: 100
+                });
+                const cube = new THREE.Mesh(geometry, material);
+                
+                // Rastgele pozisyonlar (tünel efekti)
+                cube.position.x = (Math.random() - 0.5) * 30;
+                cube.position.y = (Math.random() - 0.5) * 30;
+                cube.position.z = (Math.random() - 0.5) * 30;
+                
+                cube.rotation.x = Math.random() * 2 * Math.PI;
+                cube.rotation.y = Math.random() * 2 * Math.PI;
+                
+                scene.add(cube);
+                cubes.push(cube);
+            }
+
+            camera.position.z = 10;
+            
+            document.addEventListener('mousemove', onDocumentMouseMove);
+            window.addEventListener('resize', onWindowResize, false);
+            
+            animate();
         }
 
-        setInterval(createIcon, 300);
+        // Fare hareketini algılama
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - window.innerWidth / 2) * 0.01;
+            mouseY = (event.clientY - window.innerHeight / 2) * 0.01;
+        }
+
+        // Ekran boyutu değişirse 3D sahneyi güncelle
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Animasyon Döngüsü
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Fare hareketine göre sahneyi döndürme (3D Etkisi)
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            // Küpleri döndürme ve hareket ettirme
+            cubes.forEach((cube, index) => {
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                
+                // Tünel içinde ileri geri hareket (cıvıl cıvıl etki)
+                cube.position.z += 0.02 * (index % 2 === 0 ? 1 : -1);
+                if(cube.position.z > 15) cube.position.z = -15;
+                if(cube.position.z < -15) cube.position.z = 15;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        init();
     </script>
 </body>
 </html>
