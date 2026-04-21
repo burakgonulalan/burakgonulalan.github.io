@@ -3,160 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burak | System Architect & Digital Strategist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500&family=JetBrains+Mono:wght@100;400;700&display=swap" rel="stylesheet">
+    <title>TERMINAL | B.G.</title>
     <style>
         :root {
-            --neon-green: #00ff41;
-            --dark-bg: #050505;
-            --terminal-gray: #1a1a1a;
-            --glow: 0 0 10px rgba(0, 255, 65, 0.5);
+            --blood-red: #8b0000;
+            --pure-red: #ff0000;
+            --dark-void: #010101; /* Biraz daha derin siyah */
+            --code-gray: #333;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        * { margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--neon-green);
-            font-family: 'JetBrains Mono', monospace;
-            overflow: hidden;
+            background-color: var(--dark-void);
+            color: var(--blood-red);
+            font-family: 'Courier New', Courier, monospace;
             height: 100vh;
-        }
-
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            opacity: 0.15;
-        }
-
-        .terminal-container {
             position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 1000px;
-            height: 80vh;
-            margin: 5vh auto;
-            background: rgba(10, 10, 10, 0.85);
-            border: 1px solid var(--neon-green);
-            box-shadow: var(--glow);
-            padding: 25px;
-            overflow-y: auto;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
         }
 
-        .header-info {
-            border-bottom: 1px solid var(--neon-green);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+        /* Scanline ve Gürültü Efekti (Noise) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_p_Noisy_Texture.png'),
+                        repeating-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+            background-size: auto, 100% 4px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 100;
         }
 
-        .system-status { font-size: 0.8rem; margin-bottom: 10px; }
-        
-        .main-title {
-            font-size: 2rem;
+        /* --- ARKA PLAN CANAVARI (DIGITAL BEAST) --- */
+        #beast-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; /* İçeriğin arkasında */
+            pointer-events: none; /* Tıklamaları engelle */
+        }
+
+        .beast-shadow {
+            position: absolute;
+            width: 80vh; height: 80vh;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.5;
+            transition: 0.2s ease-out; /* Fareyi takip ederken yumuşak geçiş */
+        }
+
+        .beast-eyes {
+            position: absolute;
+            width: 60px; height: 15px;
+            display: flex; justify-content: space-between;
+            opacity: 0; /* Başlangıçta gizli */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .eye {
+            width: 15px; height: 15px;
+            background-color: var(--pure-red);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--pure-red), 0 0 30px var(--pure-red);
+            animation: blinkEyes 4s infinite;
+        }
+
+        @keyframes blinkEyes {
+            0%, 45%, 55%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); } /* Göz kırpma */
+        }
+        /* --- CANAVAR SONU --- */
+
+        .main-container {
+            position: relative;
+            z-index: 10; /* Canavarın önünde */
+            padding: 50px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(1, 1, 1, 0.6); /* İçeriğin okunabilirliği için hafif karartma */
+            backdrop-filter: blur(2px);
+        }
+
+        .warning {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            color: var(--pure-red);
+            text-shadow: 0 0 5px var(--pure-red);
+            animation: glitchText 2s infinite;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 2px 2px var(--blood-red);
             text-transform: uppercase;
-            letter-spacing: 5px;
-            animation: glitch 1s infinite linear alternate-reverse;
+            letter-spacing: -2px;
         }
 
-        .command-line { margin-top: 20px; line-height: 1.6; }
-        .prompt { color: #fff; }
-        .cursor { display: inline-block; width: 10px; height: 1.2rem; background: var(--neon-green); animation: blink 0.8s infinite; vertical-align: middle; }
-
-        .bio-section { margin: 30px 0; color: #d1d1d1; font-weight: 300; border-left: 2px solid var(--neon-green); padding-left: 20px; }
-
-        .contact-box {
-            background: var(--terminal-gray);
-            padding: 20px;
-            margin-top: 30px;
-            border: 1px dashed var(--neon-green);
+        .distorted-text {
+            font-size: 1.1rem;
+            color: #999;
+            border-left: 2px solid var(--blood-red);
+            padding-left: 20px;
+            max-width: 650px;
+            margin-bottom: 45px;
+            line-height: 1.6;
         }
 
-        .contact-link { color: var(--neon-green); text-decoration: none; display: block; margin: 10px 0; transition: 0.3s; }
-        .contact-link:hover { background: var(--neon-green); color: var(--dark-bg); padding-left: 10px; }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 0 red, -2px 0 0 blue; }
-            50% { text-shadow: -2px 0 0 red, 2px 0 0 blue; }
-            100% { text-shadow: 1px 0 0 red, -1px 0 0 blue; }
+        .data-grid {
+            display: grid;
+            gap: 18px;
+            max-width: 500px;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: var(--neon-green); }
+        .data-row {
+            border: 1px solid #151515;
+            padding: 18px;
+            transition: 0.3s;
+            background: rgba(139, 0, 0, 0.01);
+            cursor: crosshair;
+        }
+
+        .data-row:hover {
+            border-color: var(--pure-red);
+            background: rgba(139, 0, 0, 0.08);
+            transform: translateX(10px) skewX(-3deg);
+        }
+
+        .label { font-size: 0.6rem; text-transform: uppercase; color: var(--code-gray); display: block; margin-bottom: 5px; }
+        .value { font-size: 1.15rem; color: #eee; text-decoration: none; font-weight: bold; }
+
+        .glitch-btn {
+            margin-top: 50px;
+            padding: 12px 24px;
+            border: 1px solid var(--blood-red);
+            background: transparent;
+            color: var(--blood-red);
+            cursor: pointer;
+            transition: 0.3s;
+            width: fit-content;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .glitch-btn:hover {
+            background: var(--blood-red);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.8);
+        }
+
+        #terminal-access {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.6rem;
+            color: #1a1a1a;
+            user-select: none;
+        }
+
+        @keyframes glitchText {
+            0% { opacity: 1; transform: translateX(0); }
+            1% { opacity: 0.5; transform: translateX(-2px); }
+            2% { opacity: 1; transform: translateX(2px); }
+            3% { opacity: 0.8; transform: translateX(-1px); }
+            4% { opacity: 1; transform: translateX(0); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
     </style>
 </head>
 <body>
 
-<canvas id="matrix-canvas"></canvas>
-
-<div class="terminal-container">
-    <div class="header-info">
-        <div class="system-status">[ STATUS: ENCRYPTED ] [ LOCATION: IZMIR, TR ]</div>
-        <h1 class="main-title">BURAK GÖNÜLALAN</h1>
-    </div>
-
-    <div class="command-line">
-        <p><span class="prompt">root@burak:~$</span> run bio.sh</p>
-        <div class="bio-section">
-            > Merhabalar, ben Burak. Dijital dünyanın arka sokaklarında markanızın stratejisini inşa ediyorum.<br>
-            > Sosyal medya algoritmalarını bir kod dizini gibi okuyor ve optimize ediyorum.<br>
-            > Güvenlik disipliniyle profesyonelliği, yaratıcı zekayla performansı birleştiriyorum.
-        </div>
-    </div>
-
-    <div class="command-line">
-        <p><span class="prompt">root@burak:~$</span> get contact_info --display</p>
-        <div class="contact-box">
-            <a href="tel:+905012914294" class="contact-link">[ TEL ] : 0501 291 42 94</a>
-            <a href="mailto:burak@example.com" class="contact-link">[ MAIL ]: burak@example.com</a>
-            <span class="contact-link">[ WEB ]: primedealsglobal.online</span>
-        </div>
-    </div>
-
-    <div class="command-line" style="margin-top: 50px;">
-        <p><span class="prompt">root@burak:~$</span> <span class="cursor"></span></p>
+<div id="beast-container">
+    <div class="beast-shadow" id="beastShadow"></div>
+    <div class="beast-eyes" id="beastEyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
     </div>
 </div>
 
+<div class="main-container">
+    <div class="warning">DANGER: SYSTEM VULNERABILITY_LEVEL_CRITICAL</div>
+    
+    <h1>BURAK GÖNÜLALAN</h1>
+    <p style="color: var(--pure-red); margin-bottom: 25px; letter-spacing: 1px;">[ SOCIAL MEDIA ARCHITECT // DATA_BREACH_EXPERT ]</p>
+
+    <div class="distorted-text">
+        Algoritmaların karanlık yüzünü gördünüz mü? Ben oradayım. Görünmeyeni açığa çıkarıyor, 
+        dijital kimliğinizi mutlak bir otoriteyle yeniden inşa ediyorum. Bu sadece bir strateji değil, 
+        dijital dünyanın mutfağındaki o 'canavarı' kontrol altına alma operasyonudur. 
+        Korkmayın, o canavar artık sizin için çalışıyor.
+    </div>
+
+    <div class="data-grid">
+        <div class="data-row">
+            <span class="label">Secure Comm_Line</span>
+            <a href="tel:+905012914294" class="value">0501 291 42 94</a>
+        </div>
+        <div class="data-row">
+            <span class="label">Encrypted_Mail_Protocol</span>
+            <a href="mailto:burak@example.com" class="value">burak@example.com</a>
+        </div>
+        <div class="data-row">
+            <span class="label">Primary_Zone_Coordinates</span>
+            <span class="value">IZMIR / TR_ZONE_35</span>
+        </div>
+    </div>
+
+    <button class="glitch-btn" onclick="alert('SYSTEM OVERLOAD: Connection established with B.G.')">BAĞLANTIYI BAŞLAT</button>
+
+    <div id="terminal-access">SECURE_ID: 35CMY697_LOG_V3 // STATUS: MONITORING</div>
+</div>
+
 <script>
-    // Matrix Rain Effect
-    const canvas = document.getElementById('matrix-canvas');
-    const ctx = canvas.getContext('2d');
+    const beastShadow = document.getElementById('beastShadow');
+    const beastEyes = document.getElementById('beastEyes');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Fare hareket ettikçe canavarın gölgesini ve gözlerini hareket ettir
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = [];
+        // Gölge fareyi merkezden takip eder (derinlik hissi için hafif gecikmeli)
+        beastShadow.style.left = `${mouseX - (window.innerHeight * 0.4)}px`;
+        beastShadow.style.top = `${mouseY - (window.innerHeight * 0.4)}px`;
 
-    for (let x = 0; x < columns; x++) drops[x] = 1;
+        // Gözler fareye daha yakın durur
+        beastEyes.style.left = `${mouseX - 30}px`;
+        beastEyes.style.top = `${mouseY - 7}px`;
+    });
 
-    function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#0F0";
-        ctx.font = fontSize + "px monospace";
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = chars.charAt(Math.floor(Math.random() * chars.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-        }
-    }
-
-    setInterval(draw, 33);
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    // Sayfa yüklendikten 2 saniye sonra gözleri yavaşça göster
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            beastEyes.style.opacity = '1';
+        }, 2000);
     });
 </script>
 
