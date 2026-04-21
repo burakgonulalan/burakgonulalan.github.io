@@ -1,158 +1,183 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burak Gönülalan | 3D Dijital Evren</title>
+    <title>Burak | Dijital Dönüşüm Stratejisti</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00f2fe;
-            --secondary: #4facfe;
-            --neon-pink: #ff00ff;
-            --neon-purple: #9d00ff;
             --bg: #000000;
+            --card-bg: #111111;
+            --accent: #007aff;
+            --text-main: #ffffff;
+            --text-dim: #a1a1a1;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg);
-            color: white;
-            overflow: hidden;
-            min-height: 100vh;
+            color: var(--text-main);
             display: flex;
-            justify-content: center;
-            align-items: center;
+            min-height: 100vh;
+            line-height: 1.8;
         }
 
-        #canvas-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-        }
-
-        /* Cam Kart Tasarımı - Ultra Parlak */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(0, 242, 254, 0.3);
-            border-radius: 40px;
+        /* --- Sol Taraf: Sabit Profil --- */
+        .sidebar {
+            width: 300px;
+            background: var(--card-bg);
             padding: 4rem 2rem;
-            max-width: 850px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 0 80px rgba(157, 0, 255, 0.3), inset 0 0 20px rgba(0, 242, 254, 0.2);
-            position: relative;
-            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid #262626;
+            position: sticky;
+            top: 0;
+            height: 100vh;
         }
 
-        h1 { 
-            font-size: 4rem; 
-            font-weight: 900; 
-            text-transform: uppercase;
-            background: linear-gradient(to right, #fff, var(--primary), var(--neon-pink), #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            animation: shine 3s linear infinite;
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/image_9.png'); /* Siyah Beyaz Resmin */
+            background-size: cover;
+            background-position: center;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 122, 255, 0.4);
+            margin-bottom: 2rem;
         }
 
-        @keyframes shine { to { background-position: 200% center; } }
+        .sidebar h2 { font-size: 1.8rem; font-weight: 800; color: var(--text-main); }
+        .sidebar p { color: var(--accent); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
         
-        .sub-title { 
-            font-size: 1.5rem; 
-            color: var(--primary); 
-            font-weight: 600;
-            margin-bottom: 2rem; 
-            letter-spacing: 5px;
-            text-shadow: 0 0 20px var(--primary);
+        .contact-btn {
+            margin-top: auto;
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: 0.3s;
+        }
+        .contact-btn:hover { background: white; color: var(--accent); }
+
+        /* --- Sağ Taraf: Dinamik İçerik --- */
+        .main-content {
+            flex: 1;
+            padding: 4rem;
         }
 
-        .info-item { 
-            background: rgba(157, 0, 255, 0.1);
-            border: 1px solid var(--neon-purple);
-            padding: 15px 30px; 
-            border-radius: 50px; 
-            font-weight: 600;
-            box-shadow: 0 0 15px rgba(157, 0, 255, 0.4);
+        section { margin-bottom: 6rem; }
+
+        h1.section-title { font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 1rem; color: white; }
+        h1.section-title span { color: var(--accent); }
+
+        .lead-text { font-size: 1.2rem; color: var(--text-dim); max-width: 800px; margin-bottom: 3rem; }
+
+        /* Hakkımda Detaylı Anlatım Kartı */
+        .about-card {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid #262626;
+        }
+        
+        .about-card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text-main); }
+        .about-card p { color: var(--text-dim); margin-bottom: 1.5rem; }
+
+        /* Portfolyo Galerisi (Site Örnekleri) */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .btn-mail {
-            background: linear-gradient(45deg, var(--neon-purple), var(--secondary));
-            padding: 20px 50px;
-            font-size: 1.3rem;
-            box-shadow: 0 0 50px var(--neon-purple);
+        .portfolio-item {
+            background: var(--card-bg);
+            border: 1px solid #262626;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
         }
 
-        .btn-mail:hover { box-shadow: 0 0 70px var(--primary); transform: scale(1.1); }
+        .portfolio-item:hover { transform: translateY(-10px); border-color: var(--accent); }
+
+        .portfolio-thumb {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .portfolio-item h4 { padding: 20px; font-size: 1.1rem; }
+        .portfolio-item p { padding: 0 20px 20px; color: var(--text-dim); font-size: 0.9rem; }
+
+        /* Ekran Uyumluluğu (Mobil) */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #262626; padding: 2rem; }
+            .main-content { padding: 2rem; }
+            h1.section-title { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="canvas-container"></div>
-
-    <div class="glass-card">
-        <h1>Burak Gönülalan</h1>
-        <div class="sub-title">3D DIGITAL MASTER</div>
-
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-            <div class="info-item">İZMİR</div>
-            <div class="info-item">11.12.1994</div>
-            <div class="info-item">8 YIL TECRÜBE</div>
-        </div>
-
-        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; color: #ccc;">
-            Dijital dünyanın kalbinde, İzmir'in enerjisiyle beslenen 8 yıllık bir vizyon. 
-            Algoritmaları yöneten, geleceği 3D perspektifle inşa eden bir stratejist.
-        </p>
-        
-        <a href="mailto:buraklopediofficial@gmail.com" class="btn-mail" style="color: white; text-decoration: none; border-radius: 50px; font-weight: 900;">
-            BAĞLANTI KUR
-        </a>
+    <div class="sidebar">
+        <div class="profile-pic"></div>
+        <h2>Merhaba, Ben BURAK</h2>
+        <p>Dijital Stratejist</p>
+        <a href="#contact" class="contact-btn">İletişime Geç</a>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        let scene, camera, renderer, particles;
+    <div class="main-content">
+        
+        <section id="about">
+            <h1 class="section-title">Dijital Dünyanın <span>Mimarı</span></h1>
+            <p class="lead-text">İzmir'in enerjisi ve 8 yılı aşkın global tecrübeyle markaların dijital DNA'sını yeniden kodluyorum.</p>
+            
+            <div class="about-card">
+                <h3>Vizyoner Bir Yaklaşım</h3>
+                <p>1994 İzmir doğumlu bir teknoloji tutkunu olarak, dijital evrimin en kritik 8 yılına bizzat yön verdim. Sadece takipçi yönetimi değil, markaların dijital kimliklerini inşa etme, algoritma optimizasyonu ve veri odaklı dropshipping stratejileri konusunda uzmanlaştım.</p>
+                <p>Amacım, teknolojik merakımı profesyonel bir vizyonla birleştirip, iş ortaklarımı dijital okyanusta güvenli ve hızlı bir rotada ilerletmek. MacBook Air M1 gücüyle, her projeye "yenilik" ve "performans" katıyorum.</p>
+            </div>
+        </section>
 
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
+        <section id="portfolio">
+            <h1 class="section-title">Yönettiğim <span>Başarı</span> Hikayeleri</h1>
+            <p class="lead-text">MedyaBayim gibi sektör lideri panellerin dijital stratejilerini ve marka kimliklerini nasıl uçurduğumu inceleyin.</p>
+            
+            <div class="portfolio-grid">
+                <a href="#" class="portfolio-item">
+                    <div class="portfolio-thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/image_10.png');"></div>
+                    <h4>MedyaBayim | Güvenilir SMM Panel</h4>
+                    <p>Marka konumlandırma, kurumsal kimlik ve dijital etkileşim stratejileri.</p>
+                </a>
 
-            // Cıvıl Cıvıl 3D Yıldız/Parçacık Efekti
-            const geometry = new THREE.BufferGeometry();
-            const vertices = [];
-            const colors = [];
-            for (let i = 0; i < 5000; i++) {
-                vertices.push(THREE.MathUtils.randFloatSpread(50), THREE.MathUtils.randFloatSpread(50), THREE.MathUtils.randFloatSpread(50));
-                const color = new THREE.Color();
-                color.setHSL(Math.random(), 0.7, 0.5); // Her parçacık farklı renk
-                colors.push(color.r, color.g, color.b);
-            }
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+                <a href="#" class="portfolio-item">
+                    <div class="portfolio-thumb" style="background-image: url('https://raw.githubusercontent.com/burakgonulalan/burakgonulalan.github.io/main/image_11.png');"></div>
+                    <h4>Ücretsiz Üye Ol Kampanyası</h4>
+                    <p>Dönüşüm odaklı landing page tasarımı ve huni optimizasyonu.</p>
+                </a>
+            </div>
+        </section>
 
-            const material = new THREE.PointsMaterial({ size: 0.15, vertexColors: true, transparent: true, opacity: 0.8 });
-            particles = new THREE.Points(geometry, material);
-            scene.add(particles);
+        <section id="contact">
+            <h1 class="section-title">Birlikte <span>Büyüyelim</span></h1>
+            <div class="about-card" style="text-align: center;">
+                <h3>Bir Projen mi Var?</h3>
+                <p>İzmir'den dünyaya projeler üretmeye hazırım. Detayları konuşmak için bana bir mail atabilirsin.</p>
+                <a href="mailto:buraklopediofficial@gmail.com" class="contact-btn" style="display: inline-block; margin-top: 1rem;">buraklopediofficial@gmail.com</a>
+            </div>
+        </section>
 
-            camera.position.z = 5;
-            animate();
-        }
+    </div>
 
-        function animate() {
-            requestAnimationFrame(animate);
-            particles.rotation.x += 0.001;
-            particles.rotation.y += 0.002;
-            renderer.render(scene, camera);
-        }
-
-        init();
-    </script>
 </body>
 </html>
