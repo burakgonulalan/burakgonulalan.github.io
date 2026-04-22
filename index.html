@@ -3,249 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINAL | B.G.</title>
+    <title>Burak Gönülalan | Profesyonel Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --blood-red: #8b0000;
-            --pure-red: #ff0000;
-            --dark-void: #010101; /* Biraz daha derin siyah */
-            --code-gray: #333;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; }
-
-        body {
-            background-color: var(--dark-void);
-            color: var(--blood-red);
-            font-family: 'Courier New', Courier, monospace;
-            height: 100vh;
-            position: relative;
-        }
-
-        /* Scanline ve Gürültü Efekti (Noise) */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_p_Noisy_Texture.png'),
-                        repeating-linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
-            background-size: auto, 100% 4px;
-            opacity: 0.08;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        /* --- ARKA PLAN CANAVARI (DIGITAL BEAST) --- */
-        #beast-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; /* İçeriğin arkasında */
-            pointer-events: none; /* Tıklamaları engelle */
-        }
-
-        .beast-shadow {
-            position: absolute;
-            width: 80vh; height: 80vh;
-            background: radial-gradient(circle, rgba(139, 0, 0, 0.15) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            filter: blur(50px);
-            opacity: 0.5;
-            transition: 0.2s ease-out; /* Fareyi takip ederken yumuşak geçiş */
-        }
-
-        .beast-eyes {
-            position: absolute;
-            width: 60px; height: 15px;
-            display: flex; justify-content: space-between;
-            opacity: 0; /* Başlangıçta gizli */
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .eye {
-            width: 15px; height: 15px;
-            background-color: var(--pure-red);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--pure-red), 0 0 30px var(--pure-red);
-            animation: blinkEyes 4s infinite;
-        }
-
-        @keyframes blinkEyes {
-            0%, 45%, 55%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(0.1); } /* Göz kırpma */
-        }
-        /* --- CANAVAR SONU --- */
-
-        .main-container {
-            position: relative;
-            z-index: 10; /* Canavarın önünde */
-            padding: 50px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: rgba(1, 1, 1, 0.6); /* İçeriğin okunabilirliği için hafif karartma */
-            backdrop-filter: blur(2px);
-        }
-
-        .warning {
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            margin-bottom: 25px;
-            color: var(--pure-red);
-            text-shadow: 0 0 5px var(--pure-red);
-            animation: glitchText 2s infinite;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 2px 2px var(--blood-red);
-            text-transform: uppercase;
-            letter-spacing: -2px;
-        }
-
-        .distorted-text {
-            font-size: 1.1rem;
-            color: #999;
-            border-left: 2px solid var(--blood-red);
-            padding-left: 20px;
-            max-width: 650px;
-            margin-bottom: 45px;
-            line-height: 1.6;
-        }
-
-        .data-grid {
-            display: grid;
-            gap: 18px;
-            max-width: 500px;
-        }
-
-        .data-row {
-            border: 1px solid #151515;
-            padding: 18px;
-            transition: 0.3s;
-            background: rgba(139, 0, 0, 0.01);
-            cursor: crosshair;
-        }
-
-        .data-row:hover {
-            border-color: var(--pure-red);
-            background: rgba(139, 0, 0, 0.08);
-            transform: translateX(10px) skewX(-3deg);
-        }
-
-        .label { font-size: 0.6rem; text-transform: uppercase; color: var(--code-gray); display: block; margin-bottom: 5px; }
-        .value { font-size: 1.15rem; color: #eee; text-decoration: none; font-weight: bold; }
-
-        .glitch-btn {
-            margin-top: 50px;
-            padding: 12px 24px;
-            border: 1px solid var(--blood-red);
-            background: transparent;
-            color: var(--blood-red);
-            cursor: pointer;
-            transition: 0.3s;
-            width: fit-content;
-            font-family: inherit;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .glitch-btn:hover {
-            background: var(--blood-red);
-            color: #fff;
-            box-shadow: 0 0 30px rgba(139, 0, 0, 0.8);
-        }
-
-        #terminal-access {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 0.6rem;
-            color: #1a1a1a;
-            user-select: none;
-        }
-
-        @keyframes glitchText {
-            0% { opacity: 1; transform: translateX(0); }
-            1% { opacity: 0.5; transform: translateX(-2px); }
-            2% { opacity: 1; transform: translateX(2px); }
-            3% { opacity: 0.8; transform: translateX(-1px); }
-            4% { opacity: 1; transform: translateX(0); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-
+        /* Custom styles for the 3D scene and text shadow */
+        body, html { margin: 0; padding: 0; overflow: hidden; height: 100%; font-family: 'Inter', sans-serif; background-color: #030712; }
+        #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .text-glow { text-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
+        .content-overlay { z-index: 10; background: rgba(3, 7, 18, 0.6); backdrop-filter: blur(8px); }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
+<body class="text-white">
 
-<div id="beast-container">
-    <div class="beast-shadow" id="beastShadow"></div>
-    <div class="beast-eyes" id="beastEyes">
-        <div class="eye"></div>
-        <div class="eye"></div>
+    <div id="canvas-container"></div>
+
+    <div class="content-overlay min-h-screen flex flex-col items-center justify-center p-6 text-center">
+        
+        <header class="mb-12">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-glow mb-2">BURAK GÖNÜLALAN</h1>
+            <p class="text-xl md:text-2xl text-slate-300">Yazılım Geliştirici | Astroloji Motoru Mimarı</p>
+        </header>
+
+        <section class="max-w-3xl bg-gray-900/60 p-8 rounded-2xl border border-gray-800 shadow-2xl mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-white/90">Hakkımda</h2>
+            <p class="text-lg text-slate-300 leading-relaxed">
+                Yazılım dünyasında yenilikçi çözümler üretmeye odaklanmış, karmaşık sistemleri (astroloji motorları gibi) 
+                modern teknolojilerle buluşturan bir geliştiriciyim. Vizyoner projeler tasarlamak ve 
+                büyük ölçekli veri hesaplamalarını kullanıcı dostu arayüzlerle sunmak konusunda tutkuluyum. 
+                Bu platform, teknik becerilerimi ve estetik anlayışımı yansıtan kişisel dijital alanımdır.
+            </p>
+        </section>
+
+        <section class="w-full max-w-xl">
+            <h3 class="text-2xl font-semibold mb-6 text-white/90">İletişim</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <a href="mailto:burakgonulalan@email.com" class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-yellow-500 transition-all group shadow-lg">
+                    <p class="text-sm text-slate-400 group-hover:text-yellow-400">E-posta Adresi</p>
+                    <p class="text-lg font-mono text-white mt-1">burakgonulalan@email.com</p>
+                </a>
+                <a href="https://github.com/burakgonulalann" target="_blank" class="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-yellow-500 transition-all group shadow-lg">
+                    <p class="text-sm text-slate-400 group-hover:text-yellow-400">GitHub Profili</p>
+                    <p class="text-lg font-mono text-white mt-1">github.com/burakgonulalann</p>
+                </a>
+            </div>
+        </section>
+
     </div>
-</div>
 
-<div class="main-container">
-    <div class="warning">DANGER: SYSTEM VULNERABILITY_LEVEL_CRITICAL</div>
-    
-    <h1>BURAK GÖNÜLALAN</h1>
-    <p style="color: var(--pure-red); margin-bottom: 25px; letter-spacing: 1px;">[ SOCIAL MEDIA ARCHITECT // DATA_BREACH_EXPERT ]</p>
+    <script>
+        let scene, camera, renderer, rocks = [];
+        let collisionSound;
 
-    <div class="distorted-text">
-        Algoritmaların karanlık yüzünü gördünüz mü? Ben oradayım. Görünmeyeni açığa çıkarıyor, 
-        dijital kimliğinizi mutlak bir otoriteyle yeniden inşa ediyorum. Bu sadece bir strateji değil, 
-        dijital dünyanın mutfağındaki o 'canavarı' kontrol altına alma operasyonudur. 
-        Korkmayın, o canavar artık sizin için çalışıyor.
-    </div>
+        // --- 1. Audio Setup ---
+        // Create an AudioContext (essential for user-triggered audio)
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function loadSound(url) {
+            return fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => audioContext.decodeAudioBuffer(arrayBuffer));
+        }
 
-    <div class="data-grid">
-        <div class="data-row">
-            <span class="label">Secure Comm_Line</span>
-            <a href="tel:+905012914294" class="value">0501 291 42 94</a>
-        </div>
-        <div class="data-row">
-            <span class="label">Encrypted_Mail_Protocol</span>
-            <a href="mailto:burak@example.com" class="value">burak@example.com</a>
-        </div>
-        <div class="data-row">
-            <span class="label">Primary_Zone_Coordinates</span>
-            <span class="value">IZMIR / TR_ZONE_35</span>
-        </div>
-    </div>
+        // --- 2. 3D Scene Setup (Three.js) ---
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 15;
 
-    <button class="glitch-btn" onclick="alert('SYSTEM OVERLOAD: Connection established with B.G.')">BAĞLANTIYI BAŞLAT</button>
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    <div id="terminal-access">SECURE_ID: 35CMY697_LOG_V3 // STATUS: MONITORING</div>
-</div>
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040, 2); 
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
 
-<script>
-    const beastShadow = document.getElementById('beastShadow');
-    const beastEyes = document.getElementById('beastEyes');
+            // Rock Setup
+            const geometry = new THREE.DodecahedronGeometry(2, 0); // Polyhedron for rock shape
+            const material = new THREE.MeshStandardMaterial({ 
+                color: 0x1f2937, 
+                roughness: 0.9, 
+                metalness: 0.1,
+                flatShading: true // Gives it a rocky look
+            });
 
-    // Fare hareket ettikçe canavarın gölgesini ve gözlerini hareket ettir
-    document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
+            // Create 3 huge rocks
+            for (let i = 0; i < 3; i++) {
+                const rock = new THREE.Mesh(geometry, material);
+                rock.position.x = (Math.random() - 0.5) * 20;
+                rock.position.y = (Math.random() - 0.5) * 10;
+                rock.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.05,
+                    (Math.random() - 0.5) * 0.05,
+                    0
+                );
+                scene.add(rock);
+                rocks.push(rock);
+            }
 
-        // Gölge fareyi merkezden takip eder (derinlik hissi için hafif gecikmeli)
-        beastShadow.style.left = `${mouseX - (window.innerHeight * 0.4)}px`;
-        beastShadow.style.top = `${mouseY - (window.innerHeight * 0.4)}px`;
+            window.addEventListener('resize', onWindowResize, false);
+            
+            // Start the sound and animation loop after the first user interaction
+            window.addEventListener('click', startExperience, { once: true });
+            window.addEventListener('touchstart', startExperience, { once: true });
+        }
 
-        // Gözler fareye daha yakın durur
-        beastEyes.style.left = `${mouseX - 30}px`;
-        beastEyes.style.top = `${mouseY - 7}px`;
-    });
+        function startExperience() {
+            // Load a sound (This is a mock sound, replace with your 'rock-collision.mp3')
+            // To use real sound, upload an mp3 to your GitHub repo and reference it here.
+            loadSound('https://cdn.jsdelivr.net/gh/scottschiller/SoundManager2@master/demo/_mp3/rain.mp3') // Placeholder
+                .then(buffer => {
+                    collisionSound = buffer;
+                    console.log("Sound Loaded. Collisions will play audio.");
+                    animate(); // Start animation loop AFTER sound is ready
+                });
+            
+            // Unlock AudioContext for iOS/Chrome
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
 
-    // Sayfa yüklendikten 2 saniye sonra gözleri yavaşça göster
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            beastEyes.style.opacity = '1';
-        }, 2000);
-    });
-</script>
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
 
+        function playCollisionSound() {
+            if (!collisionSound) return;
+            const source = audioContext.createBufferSource();
+            source.buffer = collisionSound;
+            // Create a gain node to control volume (collisions shouldn't be too loud)
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.3; // Low volume
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            source.start(0);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            rocks.forEach(rock => {
+                rock.rotation.x += 0.005;
+                rock.rotation.y += 0.005;
+                rock.position.add(rock.velocity);
+
+                // Boundary collision (bounce off edges)
+                if (rock.position.x > 15 || rock.position.x < -15) rock.velocity.x *= -1;
+                if (rock.position.y > 8 || rock.position.y < -8) rock.velocity.y *= -1;
+            });
+
+            // Check for rock-to-rock collision
+            for (let i = 0; i < rocks.length; i++) {
+                for (let j = i + 1; j < rocks.length; j++) {
+                    const dx = rocks[i].position.x - rocks[j].position.x;
+                    const dy = rocks[i].position.y - rocks[j].position.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    // If they are touching (sum of approximate radii)
+                    if (distance < 4) {
+                        // Play sound on collision
+                        playCollisionSound();
+                        
+                        // Simple bounce-back logic
+                        rocks[i].velocity.x *= -1;
+                        rocks[i].velocity.y *= -1;
+                        rocks[j].velocity.x *= -1;
+                        rocks[j].velocity.y *= -1;
+                    }
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        // The animate() loop is called within startExperience()
+    </script>
 </body>
 </html>
