@@ -3,176 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURAK GÖNÜLALAN | THE JURASSIC WORLD</title>
-    
+    <title>Bionluk | İşleri ehline yaptır</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #050505; color: white; overflow: hidden; font-family: sans-serif; }
-        
-        /* Dinozor Arka Planı */
-        #bg-dino {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1559963110-71b394e7494d?q=80&w=2000') no-repeat center center;
-            background-size: cover;
-            filter: brightness(0.3) saturate(1.5);
-            z-index: -2;
-            transition: transform 0.1s ease-out;
-        }
-
-        /* Vahşi Başlık */
-        .wild-title {
-            font-family: 'Permanent Marker', cursive;
-            font-size: clamp(3rem, 10vw, 8rem);
-            color: #ff3e00;
-            text-shadow: 0 0 20px rgba(255, 62, 0, 0.8), 4px 4px 0 #000;
-            letter-spacing: -2px;
-        }
-
-        #canvas-container { position: fixed; top: 0; left: 0; z-index: -1; }
-        
-        .overlay {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.7) 100%);
-        }
-
-        .btn-box {
-            background: #ff3e00;
-            color: black;
-            font-weight: 900;
-            padding: 15px 40px;
-            border: 4px solid black;
-            box-shadow: 8px 8px 0 #fff;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.1s;
-        }
-
-        .btn-box:active { transform: translate(4px, 4px); box-shadow: 4px 4px 0 #fff; }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
+        .hero-gradient { background: linear-gradient(90deg, #1d1d1b 0%, #3d3d3b 100%); }
+        .bionluk-pink { color: #ff005a; }
+        .bionluk-bg-pink { background-color: #ff005a; }
+        .card:hover { transform: translateY(-5px); transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
-    <div id="bg-dino"></div>
-    <div id="canvas-container"></div>
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <h1 class="text-2xl font-black bionluk-pink tracking-tighter">bionluk</h1>
+                <div class="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
+                    <a href="#" class="hover:text-black">Freelancer Bul</a>
+                    <a href="#" class="hover:text-black">İş İlanları</a>
+                    <a href="#" class="hover:text-black">Nasıl Çalışır?</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-sm font-bold">
+                <a href="#" class="text-gray-500">Giriş Yap</a>
+                <a href="#" class="bionluk-bg-pink text-white px-6 py-2 rounded-full">Kayıt Ol</a>
+            </div>
+        </div>
+    </nav>
 
-    <div class="overlay">
-        <h1 class="wild-title animate-pulse">BURAK GÖNÜLALAN</h1>
-        
-        <div class="my-8 space-y-4">
-            <p class="text-2xl font-black bg-white text-black px-4 py-2 skew-x-[-10deg]">
-                PROFESYONEL ÖGG & YAZILIM GELİŞTİRİCİ
-            </p>
+    <section class="hero-gradient py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl text-white font-bold mb-8 italic">İşleri ehline yaptır.</h2>
+            <div class="relative max-w-2xl mx-auto">
+                <input type="text" placeholder="Hangi hizmete ihtiyacınız var?" class="w-full py-4 px-6 rounded-full text-lg outline-none shadow-2xl">
+                <button class="absolute right-2 top-2 bionluk-bg-pink text-white px-8 py-2 rounded-full font-bold h-12">Ara</button>
+            </div>
+            <div class="mt-6 flex flex-wrap justify-center gap-3 text-white/70 text-sm">
+                <span>Popüler:</span>
+                <a href="#" class="border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-black transition">Logo Tasarımı</a>
+                <a href="#" class="border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-black transition">Çeviri</a>
+                <a href="#" class="border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-black transition">Web Yazılım</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto py-12 px-4">
+        <div class="flex justify-between items-end mb-8 border-b pb-4">
+            <h3 class="text-2xl font-bold text-gray-800">Öne Çıkan Hizmetler</h3>
+            <a href="#" class="bionluk-pink font-bold text-sm">Hepsini Gör →</a>
         </div>
 
-        <div class="flex gap-4 mb-12">
-            <button onclick="window.location.href='mailto:burakgonulalan@email.com'" class="btn-box">BANA YAZ</button>
-            <button onclick="window.open('https://github.com/burakgonulalann', '_blank')" class="btn-box" style="background:#fff">GITHUB</button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="card bg-white rounded-xl overflow-hidden border">
+                <div class="h-40 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=500" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-red-500"></div>
+                        <span class="text-xs font-bold text-gray-700">burakgonulalan</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">Profesyonel 3D animasyonlu GitHub profil sayfaları tasarlayabilirim.</p>
+                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                        <span class="text-gray-400 text-xs">Başlangıç</span>
+                        <span class="font-bold text-lg">500 TL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-white rounded-xl overflow-hidden border">
+                <div class="h-40 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=500" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-blue-500"></div>
+                        <span class="text-xs font-bold text-gray-700">tasarim_merkezi</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">Markanız için akılda kalıcı modern logo tasarımları yapabilirim.</p>
+                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                        <span class="text-gray-400 text-xs">Başlangıç</span>
+                        <span class="font-bold text-lg">750 TL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-white rounded-xl overflow-hidden border">
+                <div class="h-40 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=500" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-green-500"></div>
+                        <span class="text-xs font-bold text-gray-700">video_master</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">YouTube videolarınız için profesyonel montaj ve kurgu yapabilirim.</p>
+                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                        <span class="text-gray-400 text-xs">Başlangıç</span>
+                        <span class="font-bold text-lg">1.200 TL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-white rounded-xl overflow-hidden border">
+                <div class="h-40 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1432888622747-4eb9a8f2c1d8?q=80&w=500" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-yellow-500"></div>
+                        <span class="text-xs font-bold text-gray-700">seo_uzmani</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">Sitenizi Google aramalarında ilk sayfaya taşıyacak SEO hizmeti verebilirim.</p>
+                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
+                        <span class="text-gray-400 text-xs">Başlangıç</span>
+                        <span class="font-bold text-lg">2.000 TL</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </main>
 
-        <p id="status" class="text-yellow-400 font-bold uppercase tracking-widest text-sm animate-bounce">
-            SES VE 3D İÇİN EKRANA SERTÇE TIKLA!
-        </p>
-    </div>
+    <footer class="bg-white border-t py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <h4 class="font-bold mb-4">Bionluk</h4>
+                <ul class="text-sm text-gray-500 space-y-2">
+                    <li><a href="#">Hakkımızda</a></li>
+                    <li><a href="#">Kullanıcı Sözleşmesi</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Topluluk</h4>
+                <ul class="text-sm text-gray-500 space-y-2">
+                    <li><a href="#">Freelancer Ol</a></li>
+                    <li><a href="#">Yardım Merkezi</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center mt-12 pt-8 border-t text-xs text-gray-400">
+            © 2026 Bionluk Clone - Burak Gönülalan Projesi
+        </div>
+    </footer>
 
-    <script>
-        // --- 3D DÜNYASI ---
-        let scene, camera, renderer, rocks = [];
-        
-        function init3D() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 15;
-
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-            // Işıklar
-            const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambient);
-            const pointLight = new THREE.PointLight(0xff3e00, 2, 50);
-            pointLight.position.set(5, 5, 10);
-            scene.add(pointLight);
-
-            // Devasa 3D Kayalar
-            const geometry = new THREE.DodecahedronGeometry(2, 0);
-            const material = new THREE.MeshStandardMaterial({ color: 0x444444, flatShading: true });
-
-            for(let i=0; i<5; i++) {
-                const rock = new THREE.Mesh(geometry, material);
-                rock.position.set((Math.random()-0.5)*25, (Math.random()-0.5)*15, (Math.random()-0.5)*5);
-                rock.velocity = new THREE.Vector3((Math.random()-0.5)*0.15, (Math.random()-0.5)*0.15, 0);
-                rocks.push(rock);
-                scene.add(rock);
-            }
-
-            animate();
-        }
-
-        // --- SES MOTORU (Hatasız) ---
-        let audioCtx;
-        function playEpicSound() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-
-            // 1. Kükreme Sentezleyici (Dosya gerektirmez, kodla üretir)
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 1.5);
-            
-            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
-            
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 1.5);
-
-            document.getElementById('status').innerText = "KÜKREME AKTİF!";
-        }
-
-        // --- ANİMASYON DÖNGÜSÜ ---
-        function animate() {
-            requestAnimationFrame(animate);
-            rocks.forEach(rock => {
-                rock.position.add(rock.velocity);
-                rock.rotation.x += 0.01; rock.rotation.y += 0.01;
-                
-                if(Math.abs(rock.position.x) > 18) rock.velocity.x *= -1;
-                if(Math.abs(rock.position.y) > 10) rock.velocity.y *= -1;
-            });
-            renderer.render(scene, camera);
-        }
-
-        // --- ETKİLEŞİM ---
-        window.addEventListener('click', () => {
-            playEpicSound();
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            document.getElementById('bg-dino').style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
-        });
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        init3D();
-    </script>
 </body>
 </html>
