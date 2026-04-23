@@ -3,153 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMCIK| SİKERLER BABACIM SİKERLERRRR !</title>
+    <title>BURAK GONULALAN | AGGRESSIVE_CORE</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f7f7f7; }
-        .hero-gradient { background: linear-gradient(90deg, #1d1d1b 0%, #3d3d3b 100%); }
-        .bionluk-pink { color: #ff005a; }
-        .bionluk-bg-pink { background-color: #ff005a; }
-        .card:hover { transform: translateY(-5px); transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        :root { --red: #ff0000; --blue: #00f2ff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background: #000; color: #fff; overflow: hidden; font-family: 'Orbitron', sans-serif; }
+
+        /* Nişangah İmleç */
+        #crosshair {
+            width: 40px; height: 40px;
+            border: 1px solid var(--red);
+            position: fixed; pointer-events: none;
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+        }
+        #crosshair::after { content: ''; width: 4px; height: 4px; background: var(--red); border-radius: 50%; }
+
+        /* ANA BAŞLIK: AMCIK */
+        .main-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #1a0000 0%, #000 100%);
+        }
+
+        .aggressive-title {
+            font-size: clamp(5rem, 30vw, 18rem); /* Devasa Başlık */
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: -5px;
+            position: relative;
+            text-shadow: 0.05em 0 0 var(--red), -0.025em -0.05em 0 var(--blue);
+            animation: glitch 0.4s infinite;
+            user-select: none;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Köşe Bilgileri */
+        .corner-ui {
+            position: fixed;
+            padding: 30px;
+            z-index: 100;
+            font-family: 'Syncopate', sans-serif;
+            pointer-events: none;
+        }
+        .top-left { top: 0; left: 0; border-left: 2px solid var(--red); }
+        .bottom-right { bottom: 0; right: 0; border-right: 2px solid var(--blue); text-align: right; }
+
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 500; pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-8">
-                <h1 class="text-2xl font-black bionluk-pink tracking-tighter">bionluk</h1>
-                <div class="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
-                    <a href="#" class="hover:text-black">Freelancer Bul</a>
-                    <a href="#" class="hover:text-black">İş İlanları</a>
-                    <a href="#" class="hover:text-black">Nasıl Çalışır?</a>
-                </div>
-            </div>
-            <div class="flex items-center gap-4 text-sm font-bold">
-                <a href="#" class="text-gray-500">Giriş Yap</a>
-                <a href="#" class="bionluk-bg-pink text-white px-6 py-2 rounded-full">Kayıt Ol</a>
-            </div>
-        </div>
-    </nav>
+    <div id="crosshair"></div>
+    <div class="scanlines"></div>
 
-    <section class="hero-gradient py-16 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-5xl text-white font-bold mb-8 italic">İşleri ehline yaptır.</h2>
-            <div class="relative max-w-2xl mx-auto">
-                <input type="text" placeholder="Hangi hizmete ihtiyacınız var?" class="w-full py-4 px-6 rounded-full text-lg outline-none shadow-2xl">
-                <button class="absolute right-2 top-2 bionluk-bg-pink text-white px-8 py-2 rounded-full font-bold h-12">Ara</button>
-            </div>
-            <div class="mt-6 flex flex-wrap justify-center gap-3 text-white/70 text-sm">
-                <span>Popüler:</span>
-                <a href="#" class="border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-black transition">Logo Tasarımı</a>
-                <a href="#" class="border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-black transition">Çeviri</a>
-                <a href="#" class="border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-black transition">Web Yazılım</a>
-            </div>
-        </div>
-    </section>
+    <div class="corner-ui top-left">
+        <h2 class="text-xs tracking-[0.5em] text-red-600">OPERATOR_IDENTIFIED</h2>
+        <p class="text-xl font-bold">BURAK GONULALAN</p>
+        <p class="text-[10px] text-gray-500">UNIT: OGG_IZMIR_026</p>
+    </div>
 
-    <main class="max-w-7xl mx-auto py-12 px-4">
-        <div class="flex justify-between items-end mb-8 border-b pb-4">
-            <h3 class="text-2xl font-bold text-gray-800">Öne Çıkan Hizmetler </h3>
-            <a href="#" class="bionluk-pink font-bold text-sm">Hepsini Gör →</a>
-        </div>
+    <div class="corner-ui bottom-right">
+        <h2 class="text-xs tracking-[0.5em] text-cyan-400">SYSTEM_OVERRIDE</h2>
+        <p class="text-xl font-bold">STATUS: TERMINAL</p>
+        <a href="https://github.com/burakgonulalann" class="text-[10px] text-red-600 pointer-events-auto hover:underline italic">GITHUB_LOGIN_ACCESS</a>
+    </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="main-container" onclick="roarEffect()">
+        <h1 id="target-word" class="aggressive-title">AMCIK</h1>
+    </div>
+
+    <script>
+        let audioCtx;
+
+        // Gerçek Zamanlı Dinozor Kükremesi Sentezleyici
+        function roarEffect() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const duration = 2;
+            const osc = audioCtx.createOscillator();
+            const noise = audioCtx.createOscillator();
+            const filter = audioCtx.createBiquadFilter();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + duration);
+
+            noise.type = 'square';
+            noise.frequency.setValueAtTime(150, audioCtx.currentTime);
+            noise.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + duration);
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(600, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + duration);
+
+            gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+            osc.connect(filter);
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(); noise.start();
+            osc.stop(audioCtx.currentTime + duration);
+            noise.stop(audioCtx.currentTime + duration);
+
+            // Tıklama anında ekran sarsıntısı
+            gsap.fromTo(".main-container", { x: 20 }, { x: 0, duration: 0.1, repeat: 5, yoyo: true });
+        }
+
+        // Fare Takibi (Nişangah ve Parallax)
+        window.addEventListener('mousemove', (e) => {
+            gsap.to("#crosshair", { x: e.clientX - 20, y: e.clientY - 20, duration: 0.1 });
             
-            <div class="card bg-white rounded-xl overflow-hidden border">
-                <div class="h-40 bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=500" class="w-full h-full object-cover">
-                </div>
-                <div class="p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-6 h-6 rounded-full bg-red-500"></div>
-                        <span class="text-xs font-bold text-gray-700">burakgonulalan</span>
-                    </div>
-                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">Profesyonel 3D animasyonlu GitHub profil sayfaları tasarlayabilirim.</p>
-                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
-                        <span class="text-gray-400 text-xs">Başlangıç</span>
-                        <span class="font-bold text-lg">500 TL</span>
-                    </div>
-                </div>
-            </div>
+            const xPos = (e.clientX / window.innerWidth - 0.5) * 50;
+            const yPos = (e.clientY / window.innerHeight - 0.5) * 50;
+            
+            gsap.to("#target-word", { 
+                x: xPos, 
+                y: yPos, 
+                rotationX: -yPos / 2, 
+                rotationY: xPos / 2, 
+                duration: 0.5 
+            });
+        });
 
-            <div class="card bg-white rounded-xl overflow-hidden border">
-                <div class="h-40 bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=500" class="w-full h-full object-cover">
-                </div>
-                <div class="p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-6 h-6 rounded-full bg-blue-500"></div>
-                        <span class="text-xs font-bold text-gray-700">tasarim_merkezi</span>
-                    </div>
-                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">Markanız için akılda kalıcı modern logo tasarımları yapabilirim.</p>
-                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
-                        <span class="text-gray-400 text-xs">Başlangıç</span>
-                        <span class="font-bold text-lg">750 TL</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card bg-white rounded-xl overflow-hidden border">
-                <div class="h-40 bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=500" class="w-full h-full object-cover">
-                </div>
-                <div class="p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-6 h-6 rounded-full bg-green-500"></div>
-                        <span class="text-xs font-bold text-gray-700">video_master</span>
-                    </div>
-                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">YouTube videolarınız için profesyonel montaj ve kurgu yapabilirim.</p>
-                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
-                        <span class="text-gray-400 text-xs">Başlangıç</span>
-                        <span class="font-bold text-lg">1.200 TL</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card bg-white rounded-xl overflow-hidden border">
-                <div class="h-40 bg-gray-200">
-                    <img src="https://images.unsplash.com/photo-1432888622747-4eb9a8f2c1d8?q=80&w=500" class="w-full h-full object-cover">
-                </div>
-                <div class="p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-6 h-6 rounded-full bg-yellow-500"></div>
-                        <span class="text-xs font-bold text-gray-700">seo_uzmani</span>
-                    </div>
-                    <p class="text-sm font-medium text-gray-800 h-10 overflow-hidden">Sitenizi Google aramalarında ilk sayfaya taşıyacak SEO hizmeti verebilirim.</p>
-                    <div class="mt-4 pt-4 border-t flex justify-between items-center">
-                        <span class="text-gray-400 text-xs">Başlangıç</span>
-                        <span class="font-bold text-lg">2.000 TL</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <footer class="bg-white border-t py-12 mt-12">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-                <h4 class="font-bold mb-4">Bionluk</h4>
-                <ul class="text-sm text-gray-500 space-y-2">
-                    <li><a href="#">Hakkımızda</a></li>
-                    <li><a href="#">Kullanıcı Sözleşmesi</a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4">Topluluk</h4>
-                <ul class="text-sm text-gray-500 space-y-2">
-                    <li><a href="#">Freelancer Ol</a></li>
-                    <li><a href="#">Yardım Merkezi</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="text-center mt-12 pt-8 border-t text-xs text-gray-400">
-            © 2026 Bionluk Clone - AMCIK SİTE YAPIMIDIR !!
-        </div>
-    </footer>
-
+        // Sayfa tıklandığında kükremeyi tetikle
+        window.addEventListener('mousedown', roarEffect);
+    </script>
 </body>
 </html>
