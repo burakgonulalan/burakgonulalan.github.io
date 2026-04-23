@@ -3,156 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BURAK GONULALAN | AGGRESSIVE_CORE</title>
+    <title>BURAK GÖNÜLALAN | SOSYAL MEDYA UZMANI</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #ff0000; --blue: #00f2ff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: #000; color: #fff; overflow: hidden; font-family: 'Orbitron', sans-serif; }
-
-        /* Nişangah İmleç */
-        #crosshair {
-            width: 40px; height: 40px;
-            border: 1px solid var(--red);
-            position: fixed; pointer-events: none;
-            z-index: 1000; display: flex; align-items: center; justify-content: center;
-        }
-        #crosshair::after { content: ''; width: 4px; height: 4px; background: var(--red); border-radius: 50%; }
-
-        /* ANA BAŞLIK: AMCIK */
-        .main-container {
-            height: 100vh;
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #080808; color: #fff; }
+        
+        /* MODERN GRADIENT SIDEBAR */
+        .sidebar {
+            background: linear-gradient(180deg, #111 0%, #000 100%);
+            border-right: 1px solid #222;
+            padding: 3rem 2rem;
+            flex: 0 0 350px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle, #1a0000 0%, #000 100%);
         }
 
-        .aggressive-title {
-            font-size: clamp(5rem, 30vw, 18rem); /* Devasa Başlık */
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: -5px;
-            position: relative;
-            text-shadow: 0.05em 0 0 var(--red), -0.025em -0.05em 0 var(--blue);
-            animation: glitch 0.4s infinite;
-            user-select: none;
+        /* PROFİL RESMİ - Yüklediğin resim.jpg buraya gelecek */
+        .profile-img {
+            width: 180px; height: 180px;
+            border-radius: 30px; /* Modern karemsi yuvarlak */
+            border: 2px solid #3b82f6; /* Sosyal medya mavisi */
+            object-fit: cover;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+            background: url('resim.jpg') no-repeat center center;
+            background-size: cover;
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
-        }
+        .main-content { padding: 4rem; flex: 1; }
+        .section-header { font-size: 1.2rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
+        .section-header::after { content: ''; height: 1px; flex: 1; background: #222; }
 
-        /* Köşe Bilgileri */
-        .corner-ui {
-            position: fixed;
-            padding: 30px;
-            z-index: 100;
-            font-family: 'Syncopate', sans-serif;
-            pointer-events: none;
-        }
-        .top-left { top: 0; left: 0; border-left: 2px solid var(--red); }
-        .bottom-right { bottom: 0; right: 0; border-right: 2px solid var(--blue); text-align: right; }
+        .stat-card { background: #111; border: 1px solid #222; padding: 2rem; border-radius: 20px; transition: 0.3s; }
+        .stat-card:hover { border-color: #3b82f6; transform: translateY(-5px); }
 
-        .scanlines {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            z-index: 500; pointer-events: none;
+        .skill-pill { background: #1a1a1a; border: 1px solid #333; padding: 8px 20px; rounded-full; font-size: 13px; font-weight: 600; color: #3b82f6; }
+
+        @media (max-width: 1024px) {
+            .flex-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; border-right: 0; border-bottom: 1px solid #222; }
+            .main-content { padding: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="crosshair"></div>
-    <div class="scanlines"></div>
-
-    <div class="corner-ui top-left">
-        <h2 class="text-xs tracking-[0.5em] text-red-600">OPERATOR_IDENTIFIED</h2>
-        <p class="text-xl font-bold">BURAK GONULALAN</p>
-        <p class="text-[10px] text-gray-500">UNIT: OGG_IZMIR_026</p>
-    </div>
-
-    <div class="corner-ui bottom-right">
-        <h2 class="text-xs tracking-[0.5em] text-cyan-400">SYSTEM_OVERRIDE</h2>
-        <p class="text-xl font-bold">STATUS: TERMINAL</p>
-        <a href="https://github.com/burakgonulalann" class="text-[10px] text-red-600 pointer-events-auto hover:underline italic">GITHUB_LOGIN_ACCESS</a>
-    </div>
-
-    <div class="main-container" onclick="roarEffect()">
-        <h1 id="target-word" class="aggressive-title">AMCIK</h1>
-    </div>
-
-    <script>
-        let audioCtx;
-
-        // Gerçek Zamanlı Dinozor Kükremesi Sentezleyici
-        function roarEffect() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-
-            const duration = 2;
-            const osc = audioCtx.createOscillator();
-            const noise = audioCtx.createOscillator();
-            const filter = audioCtx.createBiquadFilter();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + duration);
-
-            noise.type = 'square';
-            noise.frequency.setValueAtTime(150, audioCtx.currentTime);
-            noise.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + duration);
-
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(600, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + duration);
-
-            gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-
-            osc.connect(filter);
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start(); noise.start();
-            osc.stop(audioCtx.currentTime + duration);
-            noise.stop(audioCtx.currentTime + duration);
-
-            // Tıklama anında ekran sarsıntısı
-            gsap.fromTo(".main-container", { x: 20 }, { x: 0, duration: 0.1, repeat: 5, yoyo: true });
-        }
-
-        // Fare Takibi (Nişangah ve Parallax)
-        window.addEventListener('mousemove', (e) => {
-            gsap.to("#crosshair", { x: e.clientX - 20, y: e.clientY - 20, duration: 0.1 });
+    <div class="flex-wrapper flex min-h-screen">
+        
+        <aside class="sidebar">
+            <div class="profile-img"></div>
             
-            const xPos = (e.clientX / window.innerWidth - 0.5) * 50;
-            const yPos = (e.clientY / window.innerHeight - 0.5) * 50;
+            <h1 class="text-2xl font-extrabold text-center tracking-tight mb-1">BURAK GÖNÜLALAN</h1>
+            <p class="text-blue-500 font-bold text-xs tracking-widest uppercase mb-8 text-center">Social Media Strategist & Content Creator</p>
             
-            gsap.to("#target-word", { 
-                x: xPos, 
-                y: yPos, 
-                rotationX: -yPos / 2, 
-                rotationY: xPos / 2, 
-                duration: 0.5 
-            });
-        });
+            <div class="w-full space-y-4 text-sm">
+                <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                    <p class="text-gray-500 text-[10px] uppercase font-bold mb-1">E-Posta</p>
+                    <p class="text-white font-medium">burakgonulalan@email.com</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                    <p class="text-gray-500 text-[10px] uppercase font-bold mb-1">Lokasyon</p>
+                    <p class="text-white font-medium">İzmir, Türkiye</p>
+                </div>
+            </div>
 
-        // Sayfa tıklandığında kükremeyi tetikle
-        window.addEventListener('mousedown', roarEffect);
-    </script>
+            <div class="mt-auto pt-8 w-full">
+                <a href="https://github.com/burakgonulalann" class="block w-full py-4 bg-blue-600 hover:bg-blue-700 text-white text-center font-bold rounded-2xl transition-all shadow-lg shadow-blue-900/20 uppercase text-xs tracking-widest">Portfolyoyu İncele</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <section class="mb-16">
+                <h2 class="section-header">Hakkımda</h2>
+                <p class="text-xl text-gray-300 font-light leading-relaxed">
+                    Dijital dünyada markaların sesini duyurmak için **veriye dayalı stratejiler** ve **yaratıcı içerikler** geliştiriyorum. Algoritmaların dilinden anlayan, etkileşimi sadece rakam değil, topluluk inşası olarak gören bir sosyal medya uzmanıyım.
+                </p>
+            </section>
+
+            <section class="mb-16">
+                <h2 class="section-header">Deneyimler</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="stat-card">
+                        <h3 class="text-lg font-bold mb-2">Sosyal Medya Stratejisti</h3>
+                        <p class="text-blue-500 text-xs font-bold mb-4 uppercase">Freelance / 2024 - Günümüz</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Markalar için Instagram, TikTok ve YouTube odaklı büyüme stratejileri geliştirilmesi. Aylık içerik planlaması ve rakip analizi.
+                        </p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="text-lg font-bold mb-2">İçerik Editörü</h3>
+                        <p class="text-blue-500 text-xs font-bold mb-4 uppercase">Dijital Ajans Projeleri</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Kısa formatlı (Reels/Shorts) video kurguları ve viral potansiyeli yüksek metin yazarlığı. Topluluk yönetimi ve kriz iletişimi.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-header">Uzmanlık Alanları</h2>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-pill">Instagram Algoritma Yönetimi</span>
+                    <span class="skill-pill">TikTok Trend Analizi</span>
+                    <span class="skill-pill">Meta Ads (Reklam Yönetimi)</span>
+                    <span class="skill-pill">İçerik Planlama (Notion/Trello)</span>
+                    <span class="skill-pill">CapCut Video Kurgu</span>
+                    <span class="skill-pill">SEO Odaklı Metin Yazarlığı</span>
+                    <span class="skill-pill">Etkileşim Artırma Stratejileri</span>
+                    <span class="skill-pill">Canva / Tasarım Süreçleri</span>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
 </body>
 </html>
